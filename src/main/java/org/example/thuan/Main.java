@@ -1,6 +1,5 @@
 package org.example.thuan;
 
-import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 
 public class Main {
@@ -11,11 +10,10 @@ public class Main {
 
         tomcat.getConnector();
 
-        Context ctx = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
-
-        Tomcat.addServlet(ctx, "helloServLet", new HelloServlet());
-
-        ctx.addServletMappingDecoded("/hello", "helloServLet");
+        tomcat.addWebapp(
+                "",
+                new java.io.File("target/webapp").getAbsolutePath()
+        );
 
         tomcat.start();
 
